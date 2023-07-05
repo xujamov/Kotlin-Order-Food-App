@@ -12,6 +12,7 @@ import com.muratozturk.orderfood.data.room.ProductsBasketDAOInterface
 import com.muratozturk.orderfood.data.room.ProductsBasketRoomDatabase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import java.util.UUID
 
 class Repository(context: Context) {
     enum class LOADING {
@@ -49,7 +50,7 @@ class Repository(context: Context) {
 
     }
 
-    suspend fun getProducts(categoryId: Int) {
+    suspend fun getProducts(categoryId: UUID) {
         try {
             isLoading.value = LOADING.LOADING
             // Bottom Navigation Bar is lagging if don't add delay
@@ -133,7 +134,7 @@ class Repository(context: Context) {
 
     }
 
-    suspend fun deleteBookFromBasket(productId: Int) {
+    suspend fun deleteBookFromBasket(productId: UUID) {
         basketDif?.deleteProductWithId(productId)
     }
 

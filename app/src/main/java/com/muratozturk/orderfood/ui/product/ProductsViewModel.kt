@@ -9,6 +9,7 @@ import com.muratozturk.orderfood.data.models.Product
 import com.muratozturk.orderfood.data.repo.Repository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 class ProductsViewModel(context: Context) : ViewModel() {
 
@@ -17,7 +18,7 @@ class ProductsViewModel(context: Context) : ViewModel() {
     var isLoading: LiveData<Repository.LOADING> = repository.isLoading
 
 
-    fun getProducts(categoryId: Int) {
+    fun getProducts(categoryId: UUID) {
         viewModelScope.launch {
             repository.getProducts(categoryId)
         }

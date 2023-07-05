@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.muratozturk.orderfood.data.models.ProductsBasketRoomModel
+import java.util.UUID
 
 @Dao
 interface ProductsBasketDAOInterface {
@@ -18,14 +19,14 @@ interface ProductsBasketDAOInterface {
     suspend fun getProductsBasketTotalAmount(): Double?
 
     @Query("SELECT * FROM productsbasketdatabase WHERE id = :productId  LIMIT 1")
-    suspend fun getProductById(productId: Int): ProductsBasketRoomModel?
+    suspend fun getProductById(productId: UUID): ProductsBasketRoomModel?
 
     @Query("DELETE FROM productsbasketdatabase WHERE id = :idInput")
-    suspend fun deleteProductWithId(idInput: Int)
+    suspend fun deleteProductWithId(idInput: UUID)
 
     @Query("DELETE FROM productsbasketdatabase")
     suspend fun clearBasket()
 
     @Query("UPDATE productsbasketdatabase SET productCount=:productCount, productPrice=:productPrice  WHERE id = :productId")
-    suspend fun updateProductBasket(productId: Int, productCount: Int, productPrice: Double?)
+    suspend fun updateProductBasket(productId: UUID, productCount: Int, productPrice: Double?)
 }

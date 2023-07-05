@@ -8,6 +8,7 @@ import com.muratozturk.orderfood.R
 import com.muratozturk.orderfood.common.formatPrice
 import com.muratozturk.orderfood.data.models.ProductsBasketRoomModel
 import com.muratozturk.orderfood.databinding.BasketItemBinding
+import java.util.UUID
 
 class BasketAdapter(private var basketList: ArrayList<ProductsBasketRoomModel>) :
     RecyclerView.Adapter<BasketAdapter.ProductsViewHolder>() {
@@ -15,7 +16,7 @@ class BasketAdapter(private var basketList: ArrayList<ProductsBasketRoomModel>) 
     class ProductsViewHolder(val productCardBinding: BasketItemBinding) :
         RecyclerView.ViewHolder(productCardBinding.root)
 
-    var onDeleteClick: (Int) -> Unit = {}
+    var onDeleteClick: (UUID) -> Unit = {}
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

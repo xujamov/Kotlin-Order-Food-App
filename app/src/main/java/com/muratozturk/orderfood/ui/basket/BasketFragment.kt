@@ -17,6 +17,7 @@ import com.muratozturk.orderfood.data.models.ProductsBasketRoomModel
 import com.muratozturk.orderfood.data.repo.Repository
 import com.muratozturk.orderfood.databinding.FragmentBasketBinding
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
+import java.util.UUID
 
 
 class BasketFragment : Fragment(R.layout.fragment_basket) {
@@ -130,7 +131,7 @@ class BasketFragment : Fragment(R.layout.fragment_basket) {
         }
     }
 
-    private fun onDeleteClick(productId: Int) {
+    private fun onDeleteClick(productId: UUID) {
         viewModel.deleteProductFromBasket(productId)
     }
 }

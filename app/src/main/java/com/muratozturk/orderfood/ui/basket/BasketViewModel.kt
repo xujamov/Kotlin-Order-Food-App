@@ -8,6 +8,7 @@ import com.muratozturk.orderfood.data.models.ProductsBasketRoomModel
 import com.muratozturk.orderfood.data.repo.Repository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 class BasketViewModel(context: Context) : ViewModel() {
 
@@ -26,7 +27,7 @@ class BasketViewModel(context: Context) : ViewModel() {
 
     }
 
-    fun deleteProductFromBasket(productId: Int) {
+    fun deleteProductFromBasket(productId: UUID) {
         viewModelScope.launch {
             repository.deleteBookFromBasket(productId)
             getBasketTotalAmount()

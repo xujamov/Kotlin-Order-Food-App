@@ -22,7 +22,7 @@ fun Float.formatPrice(): String {
 
 fun ImageView.loadImage(url: String) {
     Picasso.get()
-        .load("https://codingwithlove.com/images/menuphoto/$url")
+        .load("http://192.168.0.182:8081/api/image/$url")
         .placeholder(R.drawable.loading)
         .error(R.drawable.error)
         .into(this)

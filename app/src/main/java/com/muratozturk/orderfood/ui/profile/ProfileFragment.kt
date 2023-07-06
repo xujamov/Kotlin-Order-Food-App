@@ -18,7 +18,7 @@ import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private val binding by viewBinding(FragmentProfileBinding::bind)
-    private val viewModel by lazy { ProfileViewModel() }
+    private val viewModel by lazy { ProfileViewModel(requireActivity()) }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

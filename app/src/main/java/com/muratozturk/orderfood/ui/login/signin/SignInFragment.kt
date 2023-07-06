@@ -18,7 +18,7 @@ import www.sanju.motiontoast.MotionToastStyle
 class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
     private val binding by viewBinding(FragmentSignInBinding::bind)
-    private val viewModel by lazy { SignInViewModel() }
+    private val viewModel by lazy { SignInViewModel(requireActivity()) }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
@@ -27,8 +27,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                 initObservers()
                 btnSignIn.setOnClickListener {
                     signIn(
-                        emailEditText.text.toString(),
-                        passwordEditText.text.toString()
+                        phoneNumberEditText.text.toString()
                     )
                 }
             }
@@ -88,14 +87,6 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                         )
                     }
 
-                }
-
-                isValidMail.observe(viewLifecycleOwner) {
-                    if (it.not()) {
-                        emailInputLayout.error = getString(R.string.invalid_mail)
-                    } else {
-                        emailInputLayout.error = ""
-                    }
                 }
 
                 isInfosValid.observe(viewLifecycleOwner) {

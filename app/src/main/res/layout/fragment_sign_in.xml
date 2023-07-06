@@ -31,40 +31,12 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="30dp"
-            android:hint="@string/e_mail_hint"
-            android:textColorHint="@color/primary"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxCornerRadiusBottomStart="20dp"
-            app:boxCornerRadiusTopEnd="20dp"
-            app:boxCornerRadiusTopStart="20dp"
-            app:boxStrokeColor="@color/primary"
-            app:boxStrokeWidth="@dimen/stroke_width_small"
-            app:startIconDrawable="@drawable/ic_baseline_email_24"
-            app:startIconTint="@color/primary">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:textColor="@color/primary"
-                android:textColorHint="@color/primary" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordInputLayout"
+            android:id="@+id/phoneNumberInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
-            android:hint="@string/password_hint"
             android:textColorHint="@color/primary"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusBottomStart="20dp"
@@ -72,20 +44,22 @@
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/primary"
             app:boxStrokeWidth="@dimen/stroke_width_small"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/primary"
-            app:startIconDrawable="@drawable/ic_baseline_lock_24"
+            app:layout_constraintBottom_toTopOf="@+id/signUpButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/confirmPasswordInputLayout"
+            app:startIconDrawable="@drawable/ic_baseline_phone_24"
             app:startIconTint="@color/primary">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passwordEditText"
+                android:id="@+id/phoneNumberEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:singleLine="true"
+                android:hint="@string/phone_number_hint"
                 android:textColor="@color/primary"
                 android:textColorHint="@color/primary" />
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.apachat.loadingbutton.core.customViews.CircularProgressButton
             android:id="@+id/btn_sign_in"

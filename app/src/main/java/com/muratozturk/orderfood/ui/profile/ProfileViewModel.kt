@@ -1,13 +1,14 @@
 package com.muratozturk.orderfood.ui.profile
 
+import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.muratozturk.orderfood.data.models.UserModel
 import com.muratozturk.orderfood.data.repo.UserRepository
 
-class ProfileViewModel : ViewModel() {
+class ProfileViewModel(activity: Activity) : ViewModel() {
 
-    private val usersRepo = UserRepository()
+    private val usersRepo = UserRepository(activity)
 
     val userInfo: LiveData<UserModel>
         get() = usersRepo.userInfo

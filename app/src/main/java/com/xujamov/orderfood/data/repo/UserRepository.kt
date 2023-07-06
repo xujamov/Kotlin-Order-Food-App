@@ -102,6 +102,7 @@ class UserRepository (private val activity: Activity){
     }
 
     fun signInWithCode(code: String, phone: String) {
+//        isVerificationId!! get error
         val credential = PhoneAuthProvider.getCredential(isVerificationId!!, code)
         // Use the credential to sign in the user
          auth.signInWithCredential(credential)

@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "965332077619",
-    "project_id": "orderfood-2be8f",
-    "storage_bucket": "orderfood-2be8f.appspot.com"
+    "project_number": "529975016184",
+    "project_id": "food-order-ce173",
+    "storage_bucket": "food-order-ce173.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:965332077619:android:a834fca63a6cb494dd6746",
+        "mobilesdk_app_id": "1:529975016184:android:70b71fcd7b779c2d3d990d",
         "android_client_info": {
-          "package_name": "com.muratozturk.orderfood"
+          "package_name": "com.xujamov.orderfood"
         }
       },
       "oauth_client": [
         {
-          "client_id": "965332077619-9ojgf5ji6jhqjgnnno9tdpoobr30rlu1.apps.googleusercontent.com",
+          "client_id": "529975016184-a03fpmr4j363ibfnplbvl9o6hbrkvs0e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xujamov.orderfood",
+            "certificate_hash": "7ed2052d6cfab396d64b6b6d6a526b84edfc8b81"
+          }
+        },
+        {
+          "client_id": "529975016184-1sk7k1sgivenu5uo40voalm45t9da2b3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBc2zI1vI8jP5e8Ivtth6j0PFHPSP8AFpw"
+          "current_key": "AIzaSyB2RPTHTJS-kLa6wTlKKxsj46oFTCcy5Bg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "965332077619-9ojgf5ji6jhqjgnnno9tdpoobr30rlu1.apps.googleusercontent.com",
+              "client_id": "529975016184-1sk7k1sgivenu5uo40voalm45t9da2b3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -35,6 +35,8 @@
     <string name="person_image">Person Image</string>
     <string name="log_out">Log Out</string>
     <string name="sign_in">Sign In</string>
+    <string name="verification">Verify sms code</string>
+    <string name="verify">Verify</string>
     <string name="sign_up">Sign Up</string>
     <string name="e_mail_hint">Email</string>
     <string name="password_hint">Password</string>

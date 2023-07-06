@@ -35,6 +35,8 @@
     <string name="person_image">Kullanıcı Resmi</string>
     <string name="log_out">Çıkış Yap</string>
     <string name="sign_in">Giriş Yap</string>
+    <string name="verification">Giriş Yap</string>
+    <string name="verify">Giriş Yap</string>
     <string name="sign_up">Kayıt Ol</string>
     <string name="e_mail_hint">Email</string>
     <string name="password_hint">Şifre</string>

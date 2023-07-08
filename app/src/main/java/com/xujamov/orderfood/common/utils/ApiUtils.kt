@@ -6,7 +6,7 @@ import com.xujamov.orderfood.data.retrofit.RetrofitClient
 class ApiUtils {
 
     companion object {
-        private const val BASE_URL = "http://192.168.0.182:8081/api/"
+        private const val BASE_URL = "https://restaurant-ordering-system.onrender.com/api/"
 
 
         fun getInterfaceDAO(): DAOInterface {

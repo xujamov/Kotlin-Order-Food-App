@@ -15,4 +15,10 @@ class PaymentViewModel(context: Context) : ViewModel() {
             repository.clearBasket()
         }
     }
+
+    fun createOrder() {
+        viewModelScope.launch {
+            repository.addOrder()
+        }
+    }
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.xujamov.orderfood.data.models.Categories
 import com.xujamov.orderfood.data.models.Product
 import com.xujamov.orderfood.common.utils.ApiUtils
+import com.xujamov.orderfood.data.models.Order
 import com.xujamov.orderfood.data.models.ProductsBasketRoomModel
 import com.xujamov.orderfood.data.retrofit.DAOInterface
 import com.xujamov.orderfood.data.room.ProductsBasketDAOInterface
@@ -131,6 +132,29 @@ class Repository(context: Context) {
             basketDif?.addProductBasket(productModel)
         }
 
+
+    }
+
+    suspend fun addOrder() {
+        try {
+            isLoading.value = LOADING.LOADING
+            // Bottom Navigation Bar is lagging if don't add delay
+            delay(500)
+
+            val basket = basketDif?.getProductsBasket()
+
+            Log.d("Doniyor", basket.toString())
+
+            val response = dif.addOrder(basket)
+            if (response.isSuccessful) {
+                isLoading.value = LOADING.DONE
+            } else {
+                isLoading.value = LOADING.ERROR
+            }
+        } catch (t: Throwable) {
+            t.localizedMessage?.toString()?.let { Log.e("getCategories", it) }
+            isLoading.value = LOADING.ERROR
+        }
 
     }
 

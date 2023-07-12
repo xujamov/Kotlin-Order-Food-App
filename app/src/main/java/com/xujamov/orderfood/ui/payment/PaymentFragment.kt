@@ -75,7 +75,8 @@ class PaymentFragment : BottomSheetDialogFragment() {
             orderNow.setOnClickListener {
                 if (orderAddress.text.isEmpty().not()) {
                     showOrderSuccessDialog()
-                    viewModel.clearBasket()
+                    viewModel.createOrder()
+//                    viewModel.clearBasket()
                 } else {
                     orderAddress.error = getString(R.string.address_error)
                 }

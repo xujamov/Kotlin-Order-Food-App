@@ -13,9 +13,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitClient {
     companion object {
+        private var auth = Firebase.auth
+        private var token = ""
         fun getClient(baseUrl: String): Retrofit {
-            var token = ""
-            Firebase.auth.currentUser?.let {
+
+            auth.currentUser?.let {
                 it.getIdToken(true).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         token = task.result?.token.toString()

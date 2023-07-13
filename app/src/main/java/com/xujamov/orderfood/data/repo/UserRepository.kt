@@ -101,7 +101,7 @@ class UserRepository (private val activity: Activity){
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
-    fun signInWithCode(code: String, phone: String) {
+    fun signInWithCode(code: String) {
 //        isVerificationId!! get error
         val credential = PhoneAuthProvider.getCredential(isVerificationId!!, code)
         // Use the credential to sign in the user
@@ -114,7 +114,7 @@ class UserRepository (private val activity: Activity){
                          val user = hashMapOf(
                              "id" to fbUser.uid,
                              "email" to "",
-                             "phonenumber" to phone
+                             "phonenumber" to fbUser.phoneNumber
                          )
 
                          db.collection("users").document(fbUser.uid)

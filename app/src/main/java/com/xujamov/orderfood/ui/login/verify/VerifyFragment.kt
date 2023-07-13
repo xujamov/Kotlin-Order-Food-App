@@ -1,4 +1,4 @@
-package com.xujamov.orderfood.ui.login.signin
+package com.xujamov.orderfood.ui.login.verify
 
 
 import android.content.Intent
@@ -9,32 +9,25 @@ import androidx.fragment.app.Fragment
 import com.xujamov.orderfood.ui.MainActivity
 import com.xujamov.orderfood.R
 import com.xujamov.orderfood.data.repo.UserRepository
-import com.xujamov.orderfood.databinding.FragmentSignInBinding
-import com.xujamov.orderfood.ui.login.verify.VerifyFragment
+import com.xujamov.orderfood.databinding.FragmentVerifyBinding
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 
 
-class SignInFragment : Fragment(R.layout.fragment_sign_in) {
+class VerifyFragment : Fragment(R.layout.fragment_verify) {
 
-    private val binding by viewBinding(FragmentSignInBinding::bind)
-    private val viewModel by lazy { SignInViewModel(requireActivity()) }
+    private val binding by viewBinding(FragmentVerifyBinding::bind)
+    private val viewModel by lazy { VerifyModel(requireActivity()) }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             viewModel.apply {
 
                 initObservers()
-                btnSignIn.setOnClickListener {
-                    signIn(
-                        phoneNumberEditText.text.toString()
-                    )
-                    val verifyFragment = VerifyFragment()
-                    parentFragmentManager.beginTransaction()
-                        .replace(R.id.fragmentLayout, verifyFragment)
-                        .addToBackStack(null)
-                        .commit()
+                btnVerify.setOnClickListener {
+                    val verifyCode = verifyEditText.text.toString()
+                    signInWithCode(verifyCode)
                 }
 
 
@@ -50,18 +43,18 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                 isLoading.observe(viewLifecycleOwner) {
                     when (it!!) {
                         UserRepository.LOADING.LOADING -> {
-                            btnSignIn.startAnimation()
+                            btnVerify.startAnimation()
                         }
                         UserRepository.LOADING.DONE -> {
 
-                            btnSignIn.revertAnimation {
-                                btnSignIn.setBackgroundResource(R.drawable.rounded_bg3)
+                            btnVerify.revertAnimation {
+                                btnVerify.setBackgroundResource(R.drawable.rounded_bg3)
                             }
                         }
 
                         UserRepository.LOADING.ERROR -> {
-                            btnSignIn.revertAnimation {
-                                btnSignIn.setBackgroundResource(R.drawable.rounded_bg3)
+                            btnVerify.revertAnimation {
+                                btnVerify.setBackgroundResource(R.drawable.rounded_bg3)
                             }
                         }
                     }
@@ -99,7 +92,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
                 allowVerification.observe(viewLifecycleOwner) {
                     if (it) {
-//                        verifyEditText.isEnabled = true
+                        verifyEditText.isEnabled = true
                     } else {
 //                        MotionToast.createColorToast(
 //                            requireActivity(),

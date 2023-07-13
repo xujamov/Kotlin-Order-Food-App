@@ -16,6 +16,12 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//        if (savedInstanceState == null) {
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.fragmentContainer, SignInFragment())
+//                .commit()
+//        }
+
 
         supportActionBar?.hide()
 

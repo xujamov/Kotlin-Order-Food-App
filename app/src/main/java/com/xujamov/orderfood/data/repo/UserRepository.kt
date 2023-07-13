@@ -13,10 +13,11 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.xujamov.orderfood.common.utils.TokenManager
 import com.xujamov.orderfood.data.models.UserModel
 import java.util.concurrent.TimeUnit
 
-class UserRepository (private val activity: Activity){
+class UserRepository (private val activity: Activity, private val tokenManager: TokenManager? = null){
 
     enum class LOADING {
         LOADING, DONE, ERROR
@@ -114,7 +115,7 @@ class UserRepository (private val activity: Activity){
                          val user = hashMapOf(
                              "id" to fbUser.uid,
                              "email" to "",
-                             "phonenumber" to phone
+                             "phonenumber" to fbUser.phoneNumber
                          )
 
                          db.collection("users").document(fbUser.uid)
@@ -207,5 +208,6 @@ class UserRepository (private val activity: Activity){
         isLoading.value = LOADING.LOADING
         auth.signOut()
         isLoading.value = LOADING.DONE
+        tokenManager?.clearToken()
     }
 }

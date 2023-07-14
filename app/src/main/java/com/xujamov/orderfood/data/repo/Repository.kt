@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.xujamov.orderfood.data.models.Categories
 import com.xujamov.orderfood.data.models.Product
 import com.xujamov.orderfood.common.utils.ApiUtils
+import com.xujamov.orderfood.data.models.Order
+import com.xujamov.orderfood.data.models.OrderStatus
 import com.xujamov.orderfood.data.models.ProductsBasketRoomModel
 import com.xujamov.orderfood.data.retrofit.DAOInterface
 import com.xujamov.orderfood.data.room.ProductsBasketDAOInterface
@@ -13,6 +15,7 @@ import com.xujamov.orderfood.data.room.ProductsBasketRoomDatabase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import java.util.UUID
+import kotlin.random.Random
 
 class Repository(context: Context) {
     enum class LOADING {
@@ -141,15 +144,37 @@ class Repository(context: Context) {
             delay(500)
 
             val basket = basketDif?.getProductsBasket()
+            val id = UUID.randomUUID()
+            basket?.forEach { order ->
+                val newOrder = Order(id, order.productId, order.productCount)
+                val response = dif.addOrder(newOrder)
+                if (!response.isSuccessful) {
+                    isLoading.value = LOADING.ERROR
+                    return@forEach // Exit the loop if any response is not successful
+                }
+            }
 
-            Log.d("Doniyor", basket.toString())
+            val newOrderStatus = OrderStatus(
+                bill_id = Random.nextInt() % 1000,
+                user_id = 1,
+                bill_phone = "",
+                bill_address = "Tinchlik",
+                bill_when = "",
+                bill_method = "cash",
+                bill_discount = 0,
+                bill_delivery = 0,
+                bill_total = 100000,
+                bill_paid = true,
+                bill_status = 1
+            )
 
-            val response = dif.addOrder(basket)
+            val response = dif.addOrderStatus(newOrderStatus)
             if (response.isSuccessful) {
                 isLoading.value = LOADING.DONE
             } else {
                 isLoading.value = LOADING.ERROR
             }
+
         } catch (t: Throwable) {
             t.localizedMessage?.toString()?.let { Log.e("getCategories", it) }
             isLoading.value = LOADING.ERROR

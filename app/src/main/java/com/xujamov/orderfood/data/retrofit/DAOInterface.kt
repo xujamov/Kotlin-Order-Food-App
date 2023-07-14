@@ -3,8 +3,8 @@ package com.xujamov.orderfood.data.retrofit
 
 import com.xujamov.orderfood.data.models.Categories
 import com.xujamov.orderfood.data.models.Order
+import com.xujamov.orderfood.data.models.OrderStatus
 import com.xujamov.orderfood.data.models.Product
-import com.xujamov.orderfood.data.models.ProductsBasketRoomModel
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -23,6 +23,9 @@ interface DAOInterface {
     @GET("getProducts")
     suspend fun getSearch(): Response<List<Product>>
 
+    @POST("billdetails")
+    suspend fun addOrder(@Body order: Order): Response<Order>
+
     @POST("billstatus")
-    suspend fun addOrder(@Body order: List<ProductsBasketRoomModel>?): Response<String>
+    suspend fun addOrderStatus(@Body order: OrderStatus): Response<OrderStatus>
 }

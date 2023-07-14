@@ -31,12 +31,8 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                         phoneNumberEditText.text.toString()
                     )
                 }
-
-
             }
-
         }
-
     }
 
     private fun initObservers() {

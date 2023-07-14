@@ -25,8 +25,7 @@ class UserRepository (private val activity: Activity){
     var isSignIn = MutableLiveData<Boolean>()
     var userInfo = MutableLiveData<UserModel>()
     var isLoading = MutableLiveData<LOADING>()
-    var allowVerification = MutableLiveData<Boolean>()
-    var isVerificationId: String? = null
+    var verifyId = MutableLiveData<String>()
 
     private var auth = Firebase.auth
     private val db = Firebase.firestore
@@ -53,7 +52,7 @@ class UserRepository (private val activity: Activity){
                 //     detect the incoming verification SMS and perform verification without
                 //     user action.
                 Log.d(TAG, "onVerificationCompleted:$credential")
-                signInWithPhoneAuthCredential(credential, phone)
+                signInWithPhoneAuthCredential(credential)
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
@@ -85,8 +84,7 @@ class UserRepository (private val activity: Activity){
                 Log.d(TAG, "onCodeSent:$verificationId")
 
                 isLoading.value = LOADING.DONE
-                allowVerification.value = true
-                isVerificationId = verificationId
+                verifyId.value = verificationId
 
             }
         }
@@ -101,9 +99,9 @@ class UserRepository (private val activity: Activity){
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
-    fun signInWithCode(code: String) {
-//        isVerificationId!! get error
-        val credential = PhoneAuthProvider.getCredential(isVerificationId!!, code)
+    fun signInWithCode(verifyId: String, code: String) {
+        isLoading.value = LOADING.LOADING
+        val credential = PhoneAuthProvider.getCredential(verifyId, code)
         // Use the credential to sign in the user
          auth.signInWithCredential(credential)
              .addOnCompleteListener { task ->
@@ -130,9 +128,6 @@ class UserRepository (private val activity: Activity){
                                  Log.w("SIGN_IN", "FAILURE", e)
                              }
                      }
-                     isLoading.value = LOADING.DONE
-                     isSignIn.value = true
-                     Log.d("SIGN_IN", "SUCCESS")
                  } else {
                      // Sign in failed
                      // Handle the error
@@ -142,7 +137,7 @@ class UserRepository (private val activity: Activity){
              }
     }
 
-    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential, phone: String) {
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         isLoading.value = LOADING.LOADING
         auth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
@@ -153,7 +148,7 @@ class UserRepository (private val activity: Activity){
                         val user = hashMapOf(
                             "id" to fbUser.uid,
                             "email" to "",
-                            "phonenumber" to phone
+                            "phonenumber" to fbUser.phoneNumber
                         )
 
                         db.collection("users").document(fbUser.uid)
@@ -169,9 +164,6 @@ class UserRepository (private val activity: Activity){
                                 Log.w("SIGN_IN", "FAILURE", e)
                             }
                     }
-                    isLoading.value = LOADING.DONE
-                    isSignIn.value = true
-                    Log.d("SIGN_IN", "SUCCESS")
                 } else {
                     // Sign in failed
                     // Handle the error

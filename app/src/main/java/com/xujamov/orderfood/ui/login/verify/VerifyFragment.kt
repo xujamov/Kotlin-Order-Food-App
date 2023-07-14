@@ -6,16 +6,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import com.xujamov.orderfood.ui.MainActivity
 import com.xujamov.orderfood.R
 import com.xujamov.orderfood.data.repo.UserRepository
 import com.xujamov.orderfood.databinding.FragmentVerifyBinding
+import com.xujamov.orderfood.ui.MainActivity
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 
 
-class VerifyFragment : Fragment(R.layout.fragment_verify) {
+class VerifyFragment(private val verifyId: String) : Fragment(R.layout.fragment_verify) {
 
     private val binding by viewBinding(FragmentVerifyBinding::bind)
     private val viewModel by lazy { VerifyModel(requireActivity()) }
@@ -27,7 +27,7 @@ class VerifyFragment : Fragment(R.layout.fragment_verify) {
                 initObservers()
                 btnVerify.setOnClickListener {
                     val verifyCode = verifyEditText.text.toString()
-                    signInWithCode(verifyCode)
+                    signInWithCode(verifyId, verifyCode)
                 }
 
 
@@ -90,24 +90,7 @@ class VerifyFragment : Fragment(R.layout.fragment_verify) {
 
                 }
 
-                allowVerification.observe(viewLifecycleOwner) {
-                    if (it) {
-                        verifyEditText.isEnabled = true
-                    } else {
-//                        MotionToast.createColorToast(
-//                            requireActivity(),
-//                            getString(R.string.error),
-//                            getString(R.string.wrong_email_password),
-//                            MotionToastStyle.ERROR,
-//                            MotionToast.GRAVITY_TOP or MotionToast.GRAVITY_CENTER,
-//                            MotionToast.LONG_DURATION,
-//                            ResourcesCompat.getFont(requireContext(), R.font.circular)
-//                        )
-                    }
-
-                }
-
-                isInfosValid.observe(viewLifecycleOwner) {
+                isCodeValid.observe(viewLifecycleOwner) {
                     if (it.not())
 
                         MotionToast.createColorToast(

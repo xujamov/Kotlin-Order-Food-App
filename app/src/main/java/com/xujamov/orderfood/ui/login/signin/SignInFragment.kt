@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import com.xujamov.orderfood.ui.MainActivity
 import com.xujamov.orderfood.R
 import com.xujamov.orderfood.data.repo.UserRepository
 import com.xujamov.orderfood.databinding.FragmentSignInBinding
+import com.xujamov.orderfood.ui.MainActivity
 import com.xujamov.orderfood.ui.login.verify.VerifyFragment
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import www.sanju.motiontoast.MotionToast
@@ -30,11 +30,6 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                     signIn(
                         phoneNumberEditText.text.toString()
                     )
-                    val verifyFragment = VerifyFragment()
-                    parentFragmentManager.beginTransaction()
-                        .replace(R.id.fragmentLayout, verifyFragment)
-                        .addToBackStack(null)
-                        .commit()
                 }
 
 
@@ -97,24 +92,17 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
                 }
 
-                allowVerification.observe(viewLifecycleOwner) {
-                    if (it) {
-//                        verifyEditText.isEnabled = true
-                    } else {
-//                        MotionToast.createColorToast(
-//                            requireActivity(),
-//                            getString(R.string.error),
-//                            getString(R.string.wrong_email_password),
-//                            MotionToastStyle.ERROR,
-//                            MotionToast.GRAVITY_TOP or MotionToast.GRAVITY_CENTER,
-//                            MotionToast.LONG_DURATION,
-//                            ResourcesCompat.getFont(requireContext(), R.font.circular)
-//                        )
+                verifyId.observe(viewLifecycleOwner) {
+                    if (it.isNotEmpty()) {
+                        val verifyFragment = VerifyFragment(it)
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.fragmentLayout, verifyFragment)
+                            .addToBackStack(null)
+                            .commit()
                     }
-
                 }
 
-                isInfosValid.observe(viewLifecycleOwner) {
+                isPhoneValid.observe(viewLifecycleOwner) {
                     if (it.not())
 
                         MotionToast.createColorToast(

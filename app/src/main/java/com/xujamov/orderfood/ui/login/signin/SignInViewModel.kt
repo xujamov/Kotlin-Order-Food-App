@@ -12,17 +12,17 @@ class SignInViewModel(activity: Activity) : ViewModel() {
     private var usersRepo = UserRepository(activity)
     val isSignIn: LiveData<Boolean> = usersRepo.isSignIn
     val isLoading: LiveData<UserRepository.LOADING> = usersRepo.isLoading
-    val allowVerification: LiveData<Boolean> = usersRepo.allowVerification
+    val verifyId: LiveData<String> = usersRepo.verifyId
 
-        private var _isInfosValid = MutableLiveData<Boolean>()
-    val isInfosValid: LiveData<Boolean> = _isInfosValid
+    private var _isPhoneValid = MutableLiveData<Boolean>()
+    val isPhoneValid: LiveData<Boolean> = _isPhoneValid
 
     fun signIn(phone: String) {
         if (phone.isNotEmpty() && Patterns.PHONE.matcher(phone).matches()) {
-            _isInfosValid.value = true
+            _isPhoneValid.value = true
             usersRepo.signIn(phone)
         } else {
-            _isInfosValid.value = false
+            _isPhoneValid.value = false
         }
     }
 }

@@ -10,17 +10,22 @@ import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import com.xujamov.orderfood.ui.login.LoginActivity
 import com.xujamov.orderfood.R
+import com.xujamov.orderfood.common.utils.TokenManager
 import com.xujamov.orderfood.data.repo.UserRepository
 import com.xujamov.orderfood.databinding.FragmentProfileBinding
+import com.xujamov.orderfood.ui.MainActivity
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
+    private lateinit var tokenManager: TokenManager
 
     private val binding by viewBinding(FragmentProfileBinding::bind)
-    private val viewModel by lazy { ProfileViewModel(requireActivity()) }
+    private val viewModel by lazy { ProfileViewModel(requireActivity(), tokenManager) }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        tokenManager = (activity as MainActivity).tokenManager
 
         (activity as AppCompatActivity?)!!.supportActionBar!!.title =
             resources.getString(R.string.profile)

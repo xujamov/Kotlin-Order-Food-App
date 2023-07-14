@@ -1,16 +1,17 @@
 package com.xujamov.orderfood.ui.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.xujamov.orderfood.ui.MainActivity
+import com.xujamov.orderfood.common.utils.TokenManager
 import com.xujamov.orderfood.databinding.ActivityLoginBinding
+import com.xujamov.orderfood.ui.MainActivity
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var tokenManager: TokenManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -25,26 +26,40 @@ class LoginActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        Firebase.auth.currentUser?.let {
-            it.getIdToken(true).addOnCompleteListener { task ->
+        // Initialize TokenManager
+        tokenManager = TokenManager(this)
+
+        val storedToken = tokenManager.getToken()
+
+//        if (storedToken != null) {
+//            // Token is valid, proceed to the main activity
+//            goToMainActivity()
+//        } else {
+            // Token is not valid or doesn't exist, retrieve a new one from Firebase
+        Firebase.auth.currentUser?.let { user ->
+            user.getIdToken(true).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val tokenResult = task.result?.token
-                    Log.d("TOKEN", tokenResult.toString())
-                    // Use the tokenResult as needed
-                    // The token is available here within the onCompleteListener
+                    // Store the new token
+                    tokenManager.saveToken(tokenResult.toString())
+
+                    goToMainActivity()
                 } else {
                     // Handle error in getting the token
                 }
             }
-
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
         }
+//        }
 
         binding.viewPager.adapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
 
         binding.tabBar.setupWithViewPager2(binding.viewPager)
+    }
+
+    private fun goToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 

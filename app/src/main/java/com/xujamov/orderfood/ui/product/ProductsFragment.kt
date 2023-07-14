@@ -17,18 +17,20 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xujamov.orderfood.R
 import com.xujamov.orderfood.common.gone
+import com.xujamov.orderfood.common.utils.TokenManager
 import com.xujamov.orderfood.common.visible
 import com.xujamov.orderfood.databinding.FragmentProductsBinding
 import com.xujamov.orderfood.data.models.Product
 import com.xujamov.orderfood.data.repo.Repository
+import com.xujamov.orderfood.ui.MainActivity
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 
 
 class ProductsFragment : Fragment(R.layout.fragment_products) {
-
+    private lateinit var tokenManager: TokenManager
 
     private val binding by viewBinding(FragmentProductsBinding::bind)
-    private val viewModel by lazy { ProductsViewModel(requireContext()) }
+    private val viewModel by lazy { ProductsViewModel(requireContext(), tokenManager) }
 
 
     private val args: ProductsFragmentArgs by navArgs()
@@ -38,6 +40,7 @@ class ProductsFragment : Fragment(R.layout.fragment_products) {
 
         val tryAgain: Button = requireView().findViewById<View>(R.id.tryAgain) as Button
 
+        tokenManager = (activity as MainActivity).tokenManager
 
         (activity as AppCompatActivity?)!!.supportActionBar!!.title = category.name
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)

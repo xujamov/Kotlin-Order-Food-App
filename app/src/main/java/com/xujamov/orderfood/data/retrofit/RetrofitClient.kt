@@ -4,6 +4,7 @@ import android.content.Intent
 import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.xujamov.orderfood.common.utils.TokenManager
 import com.xujamov.orderfood.ui.MainActivity
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -13,19 +14,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitClient {
     companion object {
-        private var auth = Firebase.auth
-        private var token = ""
-        fun getClient(baseUrl: String): Retrofit {
+        fun getClient(baseUrl: String, tokenManager: TokenManager?): Retrofit {
 
-            auth.currentUser?.let {
-                it.getIdToken(true).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        token = task.result?.token.toString()
-                    } else {
-                        // Handle error in getting the token
-                    }
-                }
-            }
+            val token = tokenManager?.getToken()?.takeIf { it.isNotEmpty() } ?: ""
+
             val client = OkHttpClient.Builder()
                 .addInterceptor(Interceptor { chain ->
                     val newRequest: Request = chain.request().newBuilder()

@@ -13,11 +13,10 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.xujamov.orderfood.common.utils.TokenManager
 import com.xujamov.orderfood.data.models.UserModel
 import java.util.concurrent.TimeUnit
 
-class UserRepository (private val activity: Activity, private val tokenManager: TokenManager? = null){
+class UserRepository (private val activity: Activity){
 
     enum class LOADING {
         LOADING, DONE, ERROR
@@ -200,6 +199,5 @@ class UserRepository (private val activity: Activity, private val tokenManager: 
         isLoading.value = LOADING.LOADING
         auth.signOut()
         isLoading.value = LOADING.DONE
-        tokenManager?.clearToken()
     }
 }

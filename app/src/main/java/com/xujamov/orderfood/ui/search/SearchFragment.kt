@@ -15,26 +15,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xujamov.orderfood.R
 import com.xujamov.orderfood.common.gone
-import com.xujamov.orderfood.common.utils.TokenManager
 import com.xujamov.orderfood.common.visible
 import com.xujamov.orderfood.databinding.FragmentSearchBinding
 import com.xujamov.orderfood.data.models.Product
 import com.xujamov.orderfood.data.repo.Repository
-import com.xujamov.orderfood.ui.MainActivity
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
-    private lateinit var tokenManager: TokenManager
-
     private val binding by viewBinding(FragmentSearchBinding::bind)
-    private val viewModel by lazy { SearchViewModel(requireContext(), tokenManager) }
+    private val viewModel by lazy { SearchViewModel(requireContext()) }
     private val productsAdapter by lazy { SearchAdapter() }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        tokenManager = (activity as MainActivity).tokenManager
 
         (activity as AppCompatActivity?)!!.supportActionBar!!.title =
             resources.getString(R.string.search_product)

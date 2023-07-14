@@ -10,27 +10,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.xujamov.orderfood.R
 import com.xujamov.orderfood.common.gone
-import com.xujamov.orderfood.common.utils.TokenManager
 import com.xujamov.orderfood.common.visible
 import com.xujamov.orderfood.databinding.FragmentCategoriesBinding
 import com.xujamov.orderfood.data.models.Categories
 import com.xujamov.orderfood.data.repo.Repository
-import com.xujamov.orderfood.ui.MainActivity
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 
 
 class CategoriesFragment : Fragment(R.layout.fragment_categories) {
-    private lateinit var tokenManager: TokenManager
-
 
     private val binding by viewBinding(FragmentCategoriesBinding::bind)
-    private val viewModel by lazy { CategoriesViewModel(requireContext(), tokenManager) }
+    private val viewModel by lazy { CategoriesViewModel(requireContext()) }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        tokenManager = (activity as MainActivity).tokenManager
 
         val tryAgain: Button = requireView().findViewById<View>(R.id.tryAgain) as Button
 

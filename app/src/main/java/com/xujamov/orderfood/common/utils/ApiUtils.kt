@@ -8,9 +8,8 @@ class ApiUtils {
     companion object {
         private const val BASE_URL = "https://restaurant-ordering-system.onrender.com/api/"
 
-        fun getInterfaceDAO(tokenManager: TokenManager?): DAOInterface {
-
-            return RetrofitClient.getClient(BASE_URL, tokenManager).create(DAOInterface::class.java)
+        fun getInterfaceDAO(): DAOInterface {
+            return RetrofitClient.getClient(BASE_URL).create(DAOInterface::class.java)
         }
     }
 }

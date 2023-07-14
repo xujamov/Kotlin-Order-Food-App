@@ -6,8 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.xujamov.orderfood.data.models.Categories
 import com.xujamov.orderfood.data.models.Product
 import com.xujamov.orderfood.common.utils.ApiUtils
-import com.xujamov.orderfood.common.utils.TokenManager
-import com.xujamov.orderfood.data.models.Order
 import com.xujamov.orderfood.data.models.ProductsBasketRoomModel
 import com.xujamov.orderfood.data.retrofit.DAOInterface
 import com.xujamov.orderfood.data.room.ProductsBasketDAOInterface
@@ -16,7 +14,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import java.util.UUID
 
-class Repository(context: Context, tokenManager: TokenManager? = null) {
+class Repository(context: Context) {
     enum class LOADING {
         LOADING, DONE, ERROR
     }
@@ -28,7 +26,7 @@ class Repository(context: Context, tokenManager: TokenManager? = null) {
     val isLoading = MutableLiveData<LOADING>()
     val basketTotalAmount = MutableLiveData<Double>()
 
-    private val dif: DAOInterface = ApiUtils.getInterfaceDAO(tokenManager)
+    private val dif: DAOInterface = ApiUtils.getInterfaceDAO()
     private val basketDif: ProductsBasketDAOInterface? =
         ProductsBasketRoomDatabase.productsBasketRoomDatabase(context)?.productsBasketDAOInterface()
 

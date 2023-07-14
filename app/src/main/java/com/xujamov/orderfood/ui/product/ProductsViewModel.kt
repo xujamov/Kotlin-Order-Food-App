@@ -5,15 +5,14 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.xujamov.orderfood.common.utils.TokenManager
 import com.xujamov.orderfood.data.models.Product
 import com.xujamov.orderfood.data.repo.Repository
 import kotlinx.coroutines.launch
 import java.util.UUID
 
-class ProductsViewModel(context: Context, tokenManager: TokenManager?) : ViewModel() {
+class ProductsViewModel(context: Context) : ViewModel() {
 
-    private val repository = Repository(context, tokenManager)
+    private val repository = Repository(context)
     var productList: LiveData<List<Product>> = repository.productList
     var isLoading: LiveData<Repository.LOADING> = repository.isLoading
 
